@@ -16,10 +16,22 @@ type DatabaseClient interface {
 
 	GetAllCustomers(ctx context.Context, emailAddress string) ([]models.Customer, error)
 	AddCustomer(ctx context.Context, customer *models.Customer) (*models.Customer, error)
+	GetCustomerById(ctx context.Context, ID string) (*models.Customer, error)
+	UpdateCustomer(ctx context.Context, customer *models.Customer) (*models.Customer, error)
+	DeleteCustomer(ctx context.Context, ID string) error
+
+	GetAllProducts(ctx context.Context, productId string) ([]models.Product, error)
+	AddProduct(ctx context.Context, product *models.Product) (*models.Product, error)
+	GetProductById(ctx context.Context, ID string) (*models.Product, error)
 
 	GetAllVendors(ctx context.Context, vendorId string) ([]models.Vendor, error)
-	GetAllProducts(ctx context.Context, productId string) ([]models.Product, error)
+	AddVendor(ctx context.Context, vendor *models.Vendor) (*models.Vendor, error)
+	GetVendorById(ctx context.Context, ID string) (*models.Vendor, error)
+
 	GetAllServices(ctx context.Context, serviceId string) ([]models.Service, error)
+	AddService(ctx context.Context, service *models.Service) (*models.Service, error)
+	GetServiceById(ctx context.Context, ID string) (*models.Service, error)
+	UpdateService(ctx context.Context, service *models.Service) (*models.Service, error)
 }
 
 type Client struct {
@@ -28,9 +40,9 @@ type Client struct {
 
 func NewDatabaseClient() (DatabaseClient, error) {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s",
-		"sandbox-postgres-1gdyuf3h.evidentbd.com",
-		"evident",
-		"1qazXSW@",
+		"host",
+		"user",
+		"pass",
 		"go-microservice",
 		5432,
 		"disable")
